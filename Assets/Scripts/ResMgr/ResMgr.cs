@@ -6,6 +6,6 @@ namespace Lunar.Resource
 {
     public class ResMgr
     {
-
+        
     }
 }
