@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 766493554
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 29ac1c2f108e35a1170d79f0c8c865c2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 16c36b7b3350fad15821c42f96c32ccb
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/ResLib/mat.mat
+Dependencies:
+- D:/Projects/Unity/Forever/Assets/Bundles/10c0692c28591ed7272142703884d85a.bundle

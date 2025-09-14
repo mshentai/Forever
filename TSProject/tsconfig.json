@@ -1,0 +1,25 @@
+{
+  "include": [
+    "./Src/**/*.ts",
+    "./Src/**/*.js",
+  ],
+  "compilerOptions": {
+    "typeRoots": [
+      "../Assets/Gen/Typing"
+    ],
+    "paths": {
+      "*": ["./Src/*"]
+    },
+    "outDir": "./Output",
+    "target": "es2016",
+    "module": "es2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+  },
+}
