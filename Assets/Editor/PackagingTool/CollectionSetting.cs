@@ -6,7 +6,7 @@ using System;
 
 namespace Lunar.Building
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = "CollectionSetting", menuName = "CollectionSetting", order = 1000)]
     public class CollectionSetting : ScriptableObject
     {
         [SerializeField]
