@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 namespace Lunar.UI
 {
@@ -13,6 +14,7 @@ namespace Lunar.UI
             this.nodes.Clear();
             this.UIName = this.gameObject.name;
             this.BindInternal(this.transform);
+            this.CreatePrefab();
         }
 
         private void BindInternal(Transform node)
@@ -36,7 +38,10 @@ namespace Lunar.UI
                     };
                     this.nodes.Add(binderNode);
                 }
-                this.BindInternal(child);
+                if (type != UIElementType.Reference)
+                {
+                    this.BindInternal(child);
+                }
             }
         }
 
@@ -78,9 +83,38 @@ namespace Lunar.UI
             };
         }
 
+        private void CreatePrefab() 
+        {
+            string path;
+            string fileName = this.UIName + ".prefab";
+            if (this.UIType == UIType.Component)
+            {
+                path = UIBinderSetting.comPrefabDir + fileName;
+            }
+            else
+            {
+                path = UIBinderSetting.viewPrefabDir + fileName;
+            }
+            if (!FileTool.IsExitFile(path))
+            {
+                PrefabUtility.SaveAsPrefabAsset(this.gameObject, path, out bool success);
+                if (success)
+                {
+                    AssetDatabase.SaveAssets();
+                    AssetDatabase.Refresh();
+                    Debug.Log($"{this.UIName} save as PrefabAsset, path is {path}");
+                }
+                else
+                {
+                    Debug.LogError("±£¥Ê ß∞‹");
+                }
+
+            }
+        }
+
         public void GenerateScript()
         {
-            var scriptTp = AssetDatabase.LoadAssetAtPath<TextAsset>(UIBinderSetting.scriptTpPath);
+            var scriptTp = File.ReadAllText(UIBinderSetting.scriptTpPath);
             Debug.LogError(scriptTp.ToString());
         }
     }
