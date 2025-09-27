@@ -248,7 +248,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1697840776}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -345,7 +345,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIName: MainView
   UIType: 0
-  nodes: []
+  nodes:
+  - name: Go_Root
+    obj: {fileID: 1697840775}
+    type: 8
+    reference: 
+  - name: Btn
+    obj: {fileID: 0}
+    type: 1
+    reference: 
+  - name: Img
+    obj: {fileID: 1413651200}
+    type: 2
+    reference: 
+  - name: Txt
+    obj: {fileID: 1413651199}
+    type: 0
+    reference: 
+  - name: Img_A
+    obj: {fileID: 1003708033}
+    type: 2
+    reference: 
+  - name: Img_B
+    obj: {fileID: 720583623}
+    type: 2
+    reference: 
+  overwriteIfExist: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +486,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1697840776}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -583,7 +608,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1502758042756095424, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
       propertyPath: m_Name
-      value: NormalBtnItem
+      value: Ref_NormalBtnItem
       objectReference: {fileID: 0}
     - target: {fileID: 1502758042756095439, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
       propertyPath: m_Pivot.x
@@ -595,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1502758042756095439, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1502758042756095439, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -676,6 +701,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1502758042756095439, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
   m_PrefabInstance: {fileID: 1413651197}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1413651199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1502758042301031623, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
+  m_PrefabInstance: {fileID: 1413651197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1413651200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1502758043360026685, guid: 401ce973ff2193d40ad48082301bb6f7, type: 3}
+  m_PrefabInstance: {fileID: 1413651197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1498832923
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,9 +785,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1413651198}
   - {fileID: 1003708032}
   - {fileID: 720583622}
-  - {fileID: 1413651198}
   m_Father: {fileID: 892423816}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

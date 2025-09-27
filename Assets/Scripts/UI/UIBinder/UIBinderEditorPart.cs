@@ -9,6 +9,7 @@ namespace Lunar.UI
 {
     public partial class UIBinder : MonoBehaviour
     {
+        public bool overwriteIfExist = true;
         public void Bind()
         {
             this.nodes.Clear();
@@ -21,7 +22,7 @@ namespace Lunar.UI
         {
             for (int i = 0; i < node.childCount; ++i)
             {
-                var child = node.GetChild(0);
+                var child = node.GetChild(i);
                 var fullName = child.name;
                 var args = fullName.Split('_');
                 var typeStr = args[0];
@@ -95,20 +96,19 @@ namespace Lunar.UI
             {
                 path = UIBinderSetting.viewPrefabDir + fileName;
             }
-            if (!FileTool.IsExitFile(path))
+            if (!FileTool.IsExitFile(path) || this.overwriteIfExist)
             {
                 PrefabUtility.SaveAsPrefabAsset(this.gameObject, path, out bool success);
                 if (success)
                 {
                     AssetDatabase.SaveAssets();
                     AssetDatabase.Refresh();
-                    Debug.Log($"{this.UIName} save as PrefabAsset, path is {path}");
+                    Debug.Log($"{this.UIName} is saved as PrefabAsset, path is {path}");
                 }
                 else
                 {
-                    Debug.LogError("±£´æÊ§°Ü");
+                    Debug.LogError("save as PrefabAsset failed");
                 }
-
             }
         }
 
