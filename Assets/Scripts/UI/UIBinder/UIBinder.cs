@@ -11,24 +11,39 @@ namespace Lunar.UI
         public string UIName;
         public UIType UIType = UIType.Panel;
         public List<UIBinderNode> nodes = new List<UIBinderNode>();
+        private Dictionary<string, UnityEngine.Object> _cache;
+        private Dictionary<string, UnityEngine.Object> Cache
+        {
+            get
+            {
+                if (_cache == null)
+                {
+                    _cache = new Dictionary<string, UnityEngine.Object>();
+                    foreach (var node in this.nodes)
+                    {
+                        _cache.Add(node.name, node.obj);
+                    }
+                }
+                return _cache;
+            }
+        } 
 
         public T Get<T>(string name) where T : UnityEngine.Object
         {
-            foreach (var node in this.nodes)
+            T ans = null;
+            if (Cache.TryGetValue(name, out var com))
             {
-                if (node.name == name)
+                if (com is T t)
                 {
-                    if (node.type == UIElementType.Reference)
-                    {
-                        return (node.obj as GameObject).GetComponent<T>();
-                    }
-                    else if (node.obj is T t)
-                    {
-                        return t;
-                    }
+                    ans = t;
+                }
+                else
+                {
+                    ans = (com as GameObject).GetComponent<T>();
+                    Cache[name] = ans;
                 }
             }
-            return null;
+            return ans;
         }
     }
 }

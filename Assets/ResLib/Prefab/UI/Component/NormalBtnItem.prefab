@@ -104,10 +104,10 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502758042756095424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1502758042929399267}
   m_Father: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIName: NormalBtnItem
-  UIType: 0
+  UIType: 2
   nodes:
   - name: Btn
     obj: {fileID: 0}
@@ -141,10 +141,11 @@ MonoBehaviour:
     obj: {fileID: 1502758043360026685}
     type: 2
     reference: 
-  - name: Img
-    obj: {fileID: 1502758043360026685}
-    type: 2
+  - name: Txt
+    obj: {fileID: 1502758042301031623}
+    type: 0
     reference: 
+  overwriteIfExist: 1
 --- !u!1 &1502758042929399268
 GameObject:
   m_ObjectHideFlags: 0

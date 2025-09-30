@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using Lunar.Extensions;
 
 namespace Lunar.UI
 {
@@ -13,9 +14,23 @@ namespace Lunar.UI
         public void Bind()
         {
             this.nodes.Clear();
-            this.UIName = this.gameObject.name;
+            this.UIName = this.GetUIName();
             this.BindInternal(this.transform);
             this.CreatePrefab();
+        }
+
+        private string GetUIName()
+        {
+            var fullName = this.gameObject.name;
+            if (fullName.Contains("_"))
+            {
+                var parts = fullName.Split('_');
+                if (parts.Length > 1)
+                {
+                    return parts[1];
+                }
+            }
+            return fullName;
         }
 
         private void BindInternal(Transform node)
@@ -42,6 +57,13 @@ namespace Lunar.UI
                 if (type != UIElementType.Reference)
                 {
                     this.BindInternal(child);
+                }
+                else
+                {
+                    if (!PrefabUtility.IsPartOfAnyPrefab(child.gameObject))
+                    {
+                        child.gameObject.GetOrAddComponent<UIBinder>().Bind();
+                    }
                 }
             }
         }
@@ -84,7 +106,7 @@ namespace Lunar.UI
             };
         }
 
-        private void CreatePrefab() 
+        private void CreatePrefab()
         {
             string path;
             string fileName = this.UIName + ".prefab";
@@ -98,7 +120,11 @@ namespace Lunar.UI
             }
             if (!FileTool.IsExitFile(path) || this.overwriteIfExist)
             {
-                PrefabUtility.SaveAsPrefabAsset(this.gameObject, path, out bool success);
+                if (PrefabUtility.IsAnyPrefabInstanceRoot(this.gameObject))
+                {
+                    PrefabUtility.UnpackPrefabInstance(this.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
+                }
+                PrefabUtility.SaveAsPrefabAssetAndConnect(this.gameObject, path, InteractionMode.AutomatedAction, out bool success);
                 if (success)
                 {
                     AssetDatabase.SaveAssets();
@@ -114,8 +140,20 @@ namespace Lunar.UI
 
         public void GenerateScript()
         {
-            var scriptTp = File.ReadAllText(UIBinderSetting.scriptTpPath);
-            Debug.LogError(scriptTp.ToString());
+            this.GenerateGenTpFile();
+            this.GenerateScriptFile();
+        }
+
+        public void GenerateGenTpFile()
+        {
+            var scriptTp = File.ReadAllText(UIBinderSetting.genTpPath);
+            var content = "";
+            var savePath = UIBinderSetting.scriptDir + this.UIName + ".cs";
+        }
+
+        public void GenerateScriptFile()
+        {
+            
         }
     }
 }
