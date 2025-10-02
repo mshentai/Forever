@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Lunar.UI
 {
-    public class #ClassName# : #GenName#
+    public enum UIState
     {
-        
+        None,
+        Show,
+        Hide,
+        Dispose,
     }
 }

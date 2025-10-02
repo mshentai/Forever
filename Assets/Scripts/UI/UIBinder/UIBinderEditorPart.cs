@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using Lunar.Extensions;
+using System.Linq;
 
 namespace Lunar.UI
 {
@@ -45,6 +46,11 @@ namespace Lunar.UI
                 if (type != UIElementType.None)
                 {
                     var obj = this.GetObjectByType(child, type);
+                    if (obj == null)
+                    {
+                        Debug.LogError($"Component {type} of {fullName} is Null");
+                        continue;
+                    }
                     var binderNode = new UIBinderNode
                     {
                         name = fullName,
@@ -140,20 +146,72 @@ namespace Lunar.UI
 
         public void GenerateScript()
         {
+            var scriptDir = $"{UIBinderSetting.scriptDir}{this.UIName}";
+            if (!Directory.Exists(scriptDir))
+            {
+                Directory.CreateDirectory(scriptDir);
+            }
+            this.GenerateNodeScript();
             this.GenerateGenTpFile();
             this.GenerateScriptFile();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        public void GenerateNodeScript()
+        {
+            foreach (var node in nodes)
+            {
+                if (node.type == UIElementType.Reference && !PrefabUtility.IsPartOfAnyPrefab(node.obj))
+                {
+                    (node.obj as GameObject).GetOrAddComponent<UIBinder>().Bind();
+                }
+            }
         }
 
         public void GenerateGenTpFile()
         {
-            var scriptTp = File.ReadAllText(UIBinderSetting.genTpPath);
-            var content = "";
-            var savePath = UIBinderSetting.scriptDir + this.UIName + ".cs";
+            var genTp = File.ReadAllText(UIBinderSetting.genTpPath);
+            var content = this.GetGenTpContent();
+            var className = $"{this.UIName}Gen";
+            var savePath = $"{UIBinderSetting.scriptDir}{this.UIName}/{className}.cs";
+            var gen = genTp.Replace("#ClassName# ", className).Replace("#content#", content);
+            using var writer = new StreamWriter(File.Open(savePath, FileMode.OpenOrCreate));
+            writer.Write(gen);
+        }
+
+        private string GetGenTpContent()
+        {
+            List<string> lines = new List<string>();
+            foreach (var node in nodes)
+            {
+                lines.Add(GetUIElementTp(node));
+            }
+            return string.Join("\n", lines);
+        }
+
+        private string GetUIElementTp(UIBinderNode node)
+        {
+            if (node.type != UIElementType.Reference)
+            {
+                return $"        public {node.type} {node.name} => this.binder.Get<{node.type}>(\"{node.name}\");";
+            }
+            else
+            {
+                return $"        public {node.reference} {node.name} => this.binder.Get<{node.reference}>(\"{node.name}\");";
+            }
         }
 
         public void GenerateScriptFile()
         {
-            
+            var filePath = $"{UIBinderSetting.scriptDir}{this.UIName}/{this.UIName}.cs";
+            if (!FileTool.IsExitFile(filePath))
+            {
+                var scriptTp = File.ReadAllText(UIBinderSetting.scriptTpPath);
+                var script = scriptTp.Replace("#ClassName#", this.UIName).Replace("#GenName#", $"{this.UIName}Gen");
+                using var writer = new StreamWriter(File.Open(filePath, FileMode.OpenOrCreate));
+                writer.Write(script);
+            }
         }
     }
 }

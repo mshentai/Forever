@@ -5,9 +5,15 @@ using UnityEngine.UI;
 
 namespace Lunar.UI
 {
-    public class #ClassName# : MonoBehaviour
+    public class #ClassName# : UIBase
     {
-#content# 
+        public UIBinder binder;
+        protected void Awake()
+        {
+            this.binder = this.GetComponent<UIBinder>();
+        }
+
+#content#
     }
 }
 
