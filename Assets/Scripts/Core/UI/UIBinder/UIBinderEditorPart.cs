@@ -68,7 +68,8 @@ namespace Lunar.UI
                 {
                     if (!PrefabUtility.IsPartOfAnyPrefab(child.gameObject))
                     {
-                        child.gameObject.GetOrAddComponent<UIBinder>().Bind();
+                        var binder = child.gameObject.GetOrAddComponent<UIBinder>();
+                        binder.Bind();
                     }
                 }
             }
@@ -162,9 +163,10 @@ namespace Lunar.UI
         {
             foreach (var node in nodes)
             {
-                if (node.type == UIElementType.Reference && !PrefabUtility.IsPartOfAnyPrefab(node.obj))
+                if (node.type == UIElementType.Reference && AssetDatabase.FindAssets($"{node.reference} t:Script").Length == 0)
                 {
-                    (node.obj as GameObject).GetOrAddComponent<UIBinder>().Bind();
+                    var binder = (node.obj as GameObject).GetOrAddComponent<UIBinder>();
+                    binder.GenerateScript();
                 }
             }
         }

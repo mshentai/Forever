@@ -5,6 +5,7 @@ using UnityEditor;
 using System.Linq;
 using System.IO;
 using AssetDic = System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Lunar.Building.AssetInfo>>;
+using log4net.Core;
 
 namespace Lunar.Building
 {
@@ -85,7 +86,7 @@ namespace Lunar.Building
             var collectPathList = CollectionHandle.GetAllCollectPath();
             if (collectPathList.Count == 0)
             {
-                throw new System.Exception("打包路径列表为空");
+                throw new System.Exception("No Vaild Asset");
             }
 
             var guids = AssetDatabase.FindAssets(string.Empty, collectPathList.ToArray());
@@ -93,26 +94,30 @@ namespace Lunar.Building
             foreach (var guid in guids)
             {
                 string mainAssetPath = AssetDatabase.GUIDToAssetPath(guid);
-                List<AssetInfo> depends = GetDependencies(mainAssetPath);
-                foreach (var d in depends)
+                if (!AssetDatabase.IsValidFolder(mainAssetPath))
                 {
-                    if (allAssets.ContainsKey(d.AssetPath))
+                    List<AssetInfo> depends = GetDependencies(mainAssetPath);
+                    foreach (var d in depends)
                     {
-                        ++allAssets[d.AssetPath].DependCount;
-                    }
-                    else
-                    {
-                        allAssets.Add(d.AssetPath, d);
+                        if (allAssets.ContainsKey(d.AssetPath))
+                        {
+                            ++allAssets[d.AssetPath].DependCount;
+                        }
+                        else
+                        {
+                            allAssets.Add(d.AssetPath, d);
+                        }
                     }
                 }
                 ++progressBarCount;
-                var desc = $"依赖文件分析:{progressBarCount}/{guidLen}";
+                var desc = $"progress:{progressBarCount}/{guidLen}";
                 var progress = ((float)progressBarCount) / guidLen;
-                EditorUtility.DisplayProgressBar("进度", desc, progress);
+                EditorUtility.DisplayProgressBar("tips", desc, progress);
             }
             EditorUtility.ClearProgressBar();
             progressBarCount = 0;
             List<string> removePathList = new List<string>();
+            
             foreach (var pair in allAssets)
             {
                 if (!pair.Value.IsCollectAsset)
@@ -120,7 +125,7 @@ namespace Lunar.Building
                     if (pair.Value.DependCount == 0)
                     {
                         removePathList.Add(pair.Key);
-                    } 
+                    }
                 }
             }
             removePathList.ForEach(v => allAssets.Remove(v));
@@ -128,9 +133,9 @@ namespace Lunar.Building
             {
                 SetAssetBundleLabelAndVariant(pair.Value);
                 ++progressBarCount;
-                var desc = $"设置资源标签:{progressBarCount}/{guidLen}";
+                var desc = $"progress:{progressBarCount}/{guidLen}";
                 var progress = ((float)progressBarCount) / guidLen;
-                EditorUtility.DisplayProgressBar("进度", desc, progress);
+                EditorUtility.DisplayProgressBar("tips", desc, progress);
             }
             EditorUtility.ClearProgressBar();
             progressBarCount = 0;
@@ -152,7 +157,6 @@ namespace Lunar.Building
         private static void SetAssetBundleLabelAndVariant(AssetInfo info)
         {
             var label = CollectionHandle.GetAssetBuildLabel(info.AssetPath);
-            Debug.LogError($"{label}, {HashUtils.GetMD5(label)}");
             info.AssetBuildLabel = HashUtils.GetMD5(label) + ".bundle";
             info.ReadableLabel = label;
         }

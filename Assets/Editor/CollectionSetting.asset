@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CollectionSetting
   m_EditorClassIdentifier: 
   elements:
-  - DirPath: Assets/ResLib
+  - DirPath: Assets/GameRes
     PackRule: 0
     LabelRule: 0
     BundleType: 0

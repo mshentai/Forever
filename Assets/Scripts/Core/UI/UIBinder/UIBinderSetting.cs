@@ -9,9 +9,9 @@ namespace Lunar.UI
     {
         public static string genTpPath = "ScriptTemplate/GenTemplate.txt";
         public static string scriptTpPath = "ScriptTemplate/ScriptTemplate.txt";
-        public static string scriptDir = "Assets/Scripts/UI/";
-        public static string viewPrefabDir = "Assets/ResLib/Prefab/UI/";
-        public static string comPrefabDir = "Assets/ResLib/Prefab/UI/Component/";
+        public static string scriptDir = "Assets/Scripts/GamePlay/UI/";
+        public static string viewPrefabDir = "Assets/GameRes/Prefab/UI/";
+        public static string comPrefabDir = "Assets/GameRes/Prefab/UI/Component/";
     }
 }
 #endif
