@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Lunar.UI
     public class UIBase : MonoBehaviour
     {
         public UIState state = UIState.None;
+        private readonly Event.EventGroup eventGroup = new Event.EventGroup();
 
         protected virtual void OnInit()
         {
@@ -20,7 +22,12 @@ namespace Lunar.UI
 
         protected virtual void OnRemoveEvent()
         {
+            this.eventGroup.Clear();
+        }
 
+        protected void AddEvent<T>(Action<T> handler) where T : Event.IEventMessage
+        {
+            this.eventGroup.AddEvent(handler);
         }
 
         protected virtual void OnShow()
