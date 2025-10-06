@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +7,20 @@ namespace Lunar.Resource
 {
     public class ABLoader : AssetLoader
     {
-        public override Object Load(string path)
+        public AssetBundle assetBundle;
+        public override void Load(string path, Action<UnityEngine.Object> onLoaded)
         {
             this.ResPath = path;
             string bundlePath = this.GetAssetBundlePath(path);
             AssetBundle bundle = AssetBundle.LoadFromFile(bundlePath);
-            this.asset = bundle;
+            this.assetBundle = bundle;
             var name = this.GetAssetName();
-            return bundle.LoadAsset(name);
+            this.asset = bundle.LoadAsset(name);
         }
 
-        public override void LoadAysnc(string path, OnLoaded onLoaded)
+        public override void LoadAsync(string path, Action<UnityEngine.Object> onLoaded)
         {
             this.ResPath = path;
-            this.onLoaded = onLoaded;
             string bundlePath = GetAssetBundlePath(path);
             AssetBundle.LoadFromFileAsync(bundlePath);
         }

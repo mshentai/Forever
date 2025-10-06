@@ -1,29 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Lunar.Resource
 {
-    public delegate void OnLoaded(Object asset);
     public abstract class AssetLoader
     {
-        public Object asset;
+        public UnityEngine.Object asset;
         public string ResPath { get; protected set; }
         public LoaderState State { get; protected set; }
-        protected OnLoaded onLoaded;
+        public int RefCount { get; protected set; }
 
-        public Object GetAsset()
+        public T GetAsset<T>() where T : UnityEngine.Object
         {
-            return asset;
+            return asset as T;
         }
         public string GetAssetName()
         {
             return FileTool.GetFileName(this.ResPath);
         }
 
-        public abstract Object Load(string path);
+        public abstract void Load(string path, Action<UnityEngine.Object> onLoaded);
 
-        public abstract void LoadAysnc(string path, OnLoaded onLoaded);
+        public abstract void LoadAsync(string path, Action<UnityEngine.Object> onLoaded);
 
         public abstract void Unload();
     }

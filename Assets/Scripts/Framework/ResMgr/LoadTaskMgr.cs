@@ -1,15 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-using Lunar.Resource;
 using UnityEngine;
 
-public class LoadTaskMgr
+namespace Lunar.Resource
 {
-    public LoadingTaskDispatcher dispatcher;
-    public LoadingTaskExecutor executor;
-
-    public void Update()
+    public class LoadTaskMgr
     {
-        
+        public readonly LoadingTaskDispatcher dispatcher;
+        public readonly LoadingTaskExecutor executor;
+
+        public LoadTaskMgr()
+        {
+            dispatcher = new LoadingTaskDispatcher();
+            executor = new LoadingTaskExecutor();
+        }
+
+        public void Update()
+        {
+            if (dispatcher.TryGetTask(out LoadTask task))
+            {
+                if (executor.TryGetExcutorUnit(out TaskExecutorUnit unit))
+                {
+                    unit.Excute(task);
+                }
+            }
+        }
     }
 }

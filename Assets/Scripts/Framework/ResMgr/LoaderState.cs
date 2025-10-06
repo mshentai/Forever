@@ -9,6 +9,8 @@ namespace Lunar.Resource
         Unload,
         Loading,
         Loaded,
+        Faild,
+        Unloading,
     }
 }
 
