@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Lunar.Event
+namespace Lunar.Core
 {
     public class EventGroup
     {

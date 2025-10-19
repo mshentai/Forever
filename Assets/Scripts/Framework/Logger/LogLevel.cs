@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Lunar.Core
 {
-    public class LoadAssetUtils
+    public class LogLevel : MonoBehaviour
     {
-
-    }
+    } 
 }
+

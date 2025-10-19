@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lunar.Resource
+namespace Lunar.Core
 {
     public enum LoadPriority : int
     {

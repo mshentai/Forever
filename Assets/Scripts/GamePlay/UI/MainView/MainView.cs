@@ -7,11 +7,11 @@ namespace Lunar.UI
 {
     public class MainView : MainViewGen
     {
-        public struct Evt : Event.IEventMessage
+        public struct Evt : Core.IEventMessage
         {
             public string msg;
         }
-        public struct Evt2 : Event.IEventMessage
+        public struct Evt2 : Core.IEventMessage
         {
             public string msg;
         }

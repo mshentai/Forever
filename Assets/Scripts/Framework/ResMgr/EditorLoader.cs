@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Lunar.Resource
+namespace Lunar.Core
 {
     public class EditorLoader : AssetLoader
     {

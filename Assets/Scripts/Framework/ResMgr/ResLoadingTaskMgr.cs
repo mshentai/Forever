@@ -1,4 +1,4 @@
-namespace Lunar.Resource
+namespace Lunar.Core
 {
     public class ResLoadingTaskMgr
     {

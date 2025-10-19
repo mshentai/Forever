@@ -8,7 +8,7 @@ namespace Lunar.UI
     public class UIBase : MonoBehaviour
     {
         public UIState state = UIState.None;
-        private readonly Event.EventGroup eventGroup = new Event.EventGroup();
+        private readonly Core.EventGroup eventGroup = new Core.EventGroup();
 
         protected virtual void OnInit()
         {
@@ -25,7 +25,7 @@ namespace Lunar.UI
             this.eventGroup.Clear();
         }
 
-        protected void AddEvent<T>(Action<T> handler) where T : Event.IEventMessage
+        protected void AddEvent<T>(Action<T> handler) where T : Core.IEventMessage
         {
             this.eventGroup.AddEvent(handler);
         }

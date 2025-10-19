@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lunar.Event
+namespace Lunar.Core
 {
     public interface IEventMessage
     {

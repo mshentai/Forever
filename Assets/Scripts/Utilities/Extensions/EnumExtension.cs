@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace Lunar.Extensions
+namespace Lunar.Utilities
 {
     public static class EnumExtension
     {

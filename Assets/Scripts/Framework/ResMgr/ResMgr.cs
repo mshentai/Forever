@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Lunar.Resource
+namespace Lunar.Core
 {
     public class ResMgr
     {

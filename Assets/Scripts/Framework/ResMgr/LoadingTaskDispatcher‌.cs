@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Lunar.Extensions;
+using Lunar.Utilities;
 
-namespace Lunar.Resource
+namespace Lunar.Core
 {
     public class LoadingTaskDispatcher
     {

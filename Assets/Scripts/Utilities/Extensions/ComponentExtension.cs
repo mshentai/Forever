@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lunar.Extensions
+namespace Lunar.Utilities
 {
     public static class ComponentExtension
     {
