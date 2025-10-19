@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace Lunar.Core
 {
-    public class LogLevel : MonoBehaviour
+    public enum LogLevel
     {
+        Verbose,
+        Debug,
+        Info,
+        Warning,
+        Error,
+        Critical,
+        None
     } 
 }
 

@@ -36,7 +36,7 @@ namespace Lunar.Core
             else
             {
                 // 处理优先级超出范围的情况
-                UnityEngine.Debug.LogWarning($"task Priority out of range: {task.priority}");
+                LLog.Warning($"task Priority out of range: {task.priority}");
                 // 可以选择放入最高或最低优先级队列
                 taskQueues[0].Enqueue(task); // 放入最高优先级
             }

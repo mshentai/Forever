@@ -24,7 +24,7 @@ namespace Lunar.Core
             }
             else
             {
-                Debug.LogWarning($"Subscribed to the same event repeatedly: {key.ToString()}");
+                LLog.Warning($"Subscribed to the same event repeatedly: {key.ToString()}");
             }
         }
 
@@ -56,7 +56,7 @@ namespace Lunar.Core
             }
             else
             {
-                Debug.LogWarning($"Event {key.ToString()} is not exist");
+                LLog.Warning($"Event {key.ToString()} is not exist");
             }
         }
 
@@ -74,7 +74,7 @@ namespace Lunar.Core
                     }
                     else
                     {
-                        Debug.LogWarning($"Null handler found for event {key}, consider cleaning up subscriptions");
+                        LLog.Warning($"Null handler found for event {key}, consider cleaning up subscriptions");
                     }
                 }
             }

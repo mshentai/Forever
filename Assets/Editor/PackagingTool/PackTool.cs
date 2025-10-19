@@ -6,6 +6,7 @@ using System.Linq;
 using System.IO;
 using AssetDic = System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Lunar.Building.AssetInfo>>;
 using log4net.Core;
+using Lunar.Core;
 
 namespace Lunar.Building
 {
@@ -26,11 +27,11 @@ namespace Lunar.Building
                 PostAssetBundle(manifest, assetDic);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
-                Debug.Log("EndAssetBundle");
+                LLog.Info("EndAssetBundle");
             } 
             catch (System.Exception ex)
             {
-                Debug.LogError(ex);
+                LLog.Error(ex.ToString());
             }
         }
 

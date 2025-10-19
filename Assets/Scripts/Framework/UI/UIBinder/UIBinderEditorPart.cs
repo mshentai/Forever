@@ -6,6 +6,7 @@ using UnityEditor;
 using System.IO;
 using Lunar.Utilities;
 using System.Linq;
+using Lunar.Core;
 
 namespace Lunar.UI
 {
@@ -48,7 +49,7 @@ namespace Lunar.UI
                     var obj = this.GetObjectByType(child, type);
                     if (obj == null)
                     {
-                        Debug.LogError($"Component {type} of {fullName} is Null");
+                        LLog.Error($"Component {type} of {fullName} is Null");
                         continue;
                     }
                     var binderNode = new UIBinderNode

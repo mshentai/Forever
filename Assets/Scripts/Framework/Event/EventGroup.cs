@@ -15,7 +15,7 @@ namespace Lunar.Core
             var key = typeof(T);
             if (subscriptions.ContainsKey(key))
             {
-                Debug.LogWarning($"Replacing existing subscription for {key}");
+                LLog.Warning($"Replacing existing subscription for {key}");
                 this.RemoveEvent(key);
             }
             var subscription = EventManager.SubscribeWithDisposable(handler);

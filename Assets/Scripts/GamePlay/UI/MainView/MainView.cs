@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Lunar.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,11 +25,11 @@ namespace Lunar.UI
 
         private void OnEvt(Evt e)
         {
-            Debug.LogError(e.msg);
+            LLog.Error(e.msg);
         }
         private void OnEvt(Evt2 e)
         {
-            Debug.LogError(e.msg);
+            LLog.Error(e.msg);
         }
     }
 }

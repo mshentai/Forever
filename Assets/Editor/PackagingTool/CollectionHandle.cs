@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using Lunar.Core;
 
 namespace Lunar.Building
 {
@@ -23,7 +24,7 @@ namespace Lunar.Building
             } 
             else
             {
-                Debug.Log("Load CollectionSetting is Ok");
+                LLog.Info("Load CollectionSetting is Ok");
             }
         }
 
