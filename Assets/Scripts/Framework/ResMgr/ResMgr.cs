@@ -23,7 +23,6 @@ namespace Lunar.Core
             task.priority = priority;
             task.loader = this.GetLoader(path);
             taskMgr.dispatcher.PushTask(task);
-
         }
 
 
