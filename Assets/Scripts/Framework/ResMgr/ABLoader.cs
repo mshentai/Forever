@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lunar.Core 
+namespace Lunar.Core
 {
     public class ABLoader : AssetLoader
     {
@@ -32,7 +32,7 @@ namespace Lunar.Core
             return bundlePath;
         }
 
-        public override void Unload()
+        public override void Release()
         {
             ((AssetBundle)this.asset).UnloadAsync(true);
         }

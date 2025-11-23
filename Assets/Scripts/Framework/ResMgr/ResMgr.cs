@@ -8,23 +8,34 @@ namespace Lunar.Core
     public class ResMgr
     {
         private readonly LoadTaskMgr taskMgr = new LoadTaskMgr();
+        private readonly Dictionary<string, AssetLoader> loaderCache = new();
 
         public void Update()
         {
             taskMgr.Update();
         }
 
-        public void LoadAsync(string path, Action<UnityEngine.Object> onLoaded, LoadPriority priority = LoadPriority.Normal)
+        public LoadHandle<T> LoadAsync<T>(string path, LoadPriority priority = LoadPriority.Normal)
         {
-            var task = new LoadTask();
-            task.path = path;
-            task.onLoaded = onLoaded;
-            task.isAsync = true;
-            task.priority = priority;
-            task.loader = this.GetLoader(path);
-            taskMgr.dispatcher.PushTask(task);
+            if (loaderCache.TryGetValue(path, out var loader) && (loader.State != LoaderState.Faild))
+            {
+                return new LoadHandle<T>(loader);
+            }
+            else
+            {
+                loader = this.GetLoader(path);
+                var task = new LoadTask
+                {
+                    path = path,
+                    isAsync = true,
+                    priority = priority,
+                    loader = loader,
+                };
+                loaderCache[path] = loader;
+                taskMgr.dispatcher.PushTask(task);
+                return new LoadHandle<T>(loader);
+            }
         }
-
 
         private AssetLoader GetLoader(string path)
         {

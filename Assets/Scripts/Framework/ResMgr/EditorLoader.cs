@@ -13,6 +13,7 @@ namespace Lunar.Core
         {
             var t = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
             this.asset = t;
+            this.State = LoaderState.Loaded;
             onLoaded(t);
         }
 
@@ -20,12 +21,14 @@ namespace Lunar.Core
         {
             var t = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path);
             this.asset = t;
+            this.State = LoaderState.Loaded;
             onLoaded(t);
         }
 
-        public override void Unload()
+        public override void Release()
         {
-            Resources.UnloadAsset(this.asset);
+            this.asset = null;
+            this.State = LoaderState.Unloaded;
         }
     }
 }

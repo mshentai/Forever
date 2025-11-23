@@ -6,7 +6,7 @@ namespace Lunar.Core
 {
     public enum LoaderState
     {
-        Unload,
+        Unloaded,
         Loading,
         Loaded,
         Faild,

@@ -25,13 +25,13 @@ namespace Lunar.Core
 
         public void Cancel()
         {
+            // todo: 取消加载
             this.isFinished = true;
         }
 
         private void OnTaskFinished(UnityEngine.Object asset)
         {
             isFinished = true;
-            this.task.onLoaded?.Invoke(asset);
         }
     }
 }

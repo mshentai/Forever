@@ -2,30 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Lunar.Core;
 
 public class LoadHandle<T> : ILoadHandle<T>
 {
-    public bool IsDone { get; }
-    public float Progress { get; }
+    public bool IsDone => loader.State == LoaderState.Loaded || loader.State == LoaderState.Faild;
+    public bool IsSuccessful => loader.State == LoaderState.Loaded;
     public T Result { get; }
     public string Error { get; }
-    public bool IsSuccessful { get; }
     public event Action<ILoadHandle<T>> Completed;
-
+    bool IEnumerator.MoveNext() => !IsDone;
+    void IEnumerator.Reset() { }
+    public void Dispose() => Release();
+    public void Release() => this.loader.Release();
+    public object Current => null;
+    private AssetLoader loader;
+    public LoadHandle(AssetLoader loader)
+    {
+        this.loader = loader;
+        this.loader.Refenece();
+    }
     public void Cancel()
     {
-        throw new NotImplementedException();
+        // todo: 这个功能没有经过良好设计，需要重构
+        this.loader.Cancel();
     }
-
-    public void Reset()
-    {
-        throw new NotImplementedException();
-    }
-
-    bool IEnumerator.MoveNext()
-    {
-        throw new NotImplementedException();
-    }
-
-    public object Current { get; }
 }

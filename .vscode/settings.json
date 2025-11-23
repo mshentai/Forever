@@ -56,5 +56,11 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Forever.slnx"
+    "dotnet.defaultSolution": "Forever.slnx",
+    "codingcopilot.enableAutoCompletions": true,
+    "codingcopilot.generationPreference": "intelligentMode",
+    "codingcopilot.enableCompletionLanguage": {
+        "scminput": false
+    },
+    "codingcopilot.enableInlineChat": true
 }
