@@ -27,7 +27,7 @@ namespace Lunar.Building
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 LLog.Info("EndAssetBundle");
-            } 
+            }
             catch (System.Exception ex)
             {
                 LLog.Error(ex.ToString());
@@ -43,7 +43,6 @@ namespace Lunar.Building
         {
             BuildAssetBundleOptions opt = BuildAssetBundleOptions.None;
             opt |= BuildAssetBundleOptions.StrictMode;
-
             return opt;
         }
 
@@ -115,8 +114,8 @@ namespace Lunar.Building
             }
             EditorUtility.ClearProgressBar();
             progressBarCount = 0;
-            List<string> removePathList = new List<string>();
-            
+            List<string> removePathList = new();
+
             foreach (var pair in allAssets)
             {
                 if (!pair.Value.IsCollectAsset)
@@ -172,7 +171,7 @@ namespace Lunar.Building
                 {
                     var node = resMap[name];
                     node.MD5 = md5;
-                } 
+                }
                 else
                 {
                     var node = new AssetNode(name, md5, depends);
