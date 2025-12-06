@@ -17,7 +17,7 @@ namespace Lunar.Building
             if (setting == null)
             {
                 setting = ScriptableObject.CreateInstance<CollectionSetting>();
-                FileTool.CreateDirByFilePath(settingPath);
+                FileHelper.CreateDirByFilePath(settingPath);
                 AssetDatabase.CreateAsset(setting, settingPath);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
@@ -74,19 +74,19 @@ namespace Lunar.Building
             switch (wrap.LabelRule)
             {
                 case LabelRule.LabelByFileName:
-                    res = FileTool.GetFileName(assetPath);
+                    res = FileHelper.GetFileName(assetPath);
                     break;
                 case LabelRule.LabelByFilePath:
                     res = assetPath.Remove(assetPath.LastIndexOf('.'));
                     break;
                 case LabelRule.LabelByDirName:
-                    res = FileTool.GetFileName(FileTool.GetDirPath(assetPath));
+                    res = FileHelper.GetFileName(FileHelper.GetDirPath(assetPath));
                     break;
                 case LabelRule.LabelByDirPath:
-                    res = FileTool.GetDirPath(assetPath);
+                    res = FileHelper.GetDirPath(assetPath);
                     break;
                 default:
-                    res = FileTool.GetFileName(assetPath);
+                    res = FileHelper.GetFileName(assetPath);
                     break;
             }
             return res;

@@ -27,7 +27,7 @@ namespace Lunar.Core
 
         public string GetAssetBundlePath(string path)
         {
-            string md5 = HashUtils.GetMD5(path);
+            string md5 = HashHelper.GetMD5(path);
             string bundlePath = string.Format(PathDefine.bundleLoadPathFormat, md5);
             return bundlePath;
         }

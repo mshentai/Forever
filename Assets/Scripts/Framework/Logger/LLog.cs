@@ -308,7 +308,7 @@ namespace Lunar.Core
 
         private static string SerializeData(Dictionary<string, object> data)
         {
-            return JsonUtils.ToString(data);
+            return JsonHelper.ToJson(data);
         }
         #endregion
 

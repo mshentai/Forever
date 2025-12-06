@@ -126,7 +126,7 @@ namespace Lunar.UI
             {
                 path = UIBinderSetting.viewPrefabDir + fileName;
             }
-            if (!FileTool.IsExitFile(path) || this.overwriteIfExist)
+            if (!FileHelper.IsExistFile(path) || this.overwriteIfExist)
             {
                 if (PrefabUtility.IsAnyPrefabInstanceRoot(this.gameObject))
                 {
@@ -208,7 +208,7 @@ namespace Lunar.UI
         public void GenerateScriptFile()
         {
             var filePath = $"{UIBinderSetting.scriptDir}{this.UIName}/{this.UIName}.cs";
-            if (!FileTool.IsExitFile(filePath))
+            if (!FileHelper.IsExistFile(filePath))
             {
                 var scriptTp = File.ReadAllText(UIBinderSetting.scriptTpPath);
                 var script = scriptTp.Replace("#ClassName#", this.UIName).Replace("#GenName#", $"{this.UIName}Gen");

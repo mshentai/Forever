@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Lunar.Core
+{
+    public static class AssetbundleHelper
+    {
+        private static string AssetBundleConfigPath => Application.streamingAssetsPath + "/AssetBundleConfig.json";
+        public static AssetBundleConfig LoadAssetBundleConfig()
+        {
+            if (FileHelper.IsExistFile(AssetBundleConfigPath))
+            {
+                var json = FileHelper.ReadAllText(AssetBundleConfigPath);
+                var jsonObject = JsonHelper.ToObject<AssetBundleConfigJson>(json);
+                return jsonObject.ToConfig();
+            }
+            return new AssetBundleConfig();
+        }
+
+        public static void SaveAssetBundleConfig(AssetBundleConfig config)
+        {
+            var jsonObject = config.ToJsonObject();
+            var json = JsonHelper.ToJson(jsonObject);
+            FileHelper.WriteAllText(AssetBundleConfigPath, json);
+        }
+    }
+}
+

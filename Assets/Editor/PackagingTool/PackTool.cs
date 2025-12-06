@@ -17,7 +17,7 @@ namespace Lunar.Building
             try
             {
                 var outputPath = PathDefine.bundlePath;
-                FileTool.CreateDirByDirPath(outputPath);
+                FileHelper.CreateDirByDirPath(outputPath);
                 var opt = GetBuildOptions();
                 var target = GetBuildTarget();
                 var assetDic = GetAssetDic();
@@ -155,7 +155,7 @@ namespace Lunar.Building
         private static void SetAssetBundleLabelAndVariant(AssetInfo info)
         {
             var label = CollectionHandle.GetAssetBuildLabel(info.AssetPath);
-            info.AssetBuildLabel = HashUtils.GetMD5(label) + ".bundle";
+            info.AssetBuildLabel = HashHelper.GetMD5(label) + ".bundle";
             info.ReadableLabel = label;
         }
 
@@ -207,19 +207,16 @@ namespace Lunar.Building
         private static void SaveResMap(Dictionary<string, AssetNode> map)
         {
             var manifestPath = PathDefine.manifestPath;
-            using (var writer = new StreamWriter(File.Open(manifestPath, FileMode.OpenOrCreate)))
+            using var writer = new StreamWriter(File.Open(manifestPath, FileMode.OpenOrCreate));
+            var builder = new System.Text.StringBuilder();
+            foreach (var pair in map)
             {
-                var builder = new System.Text.StringBuilder();
-                foreach (var pair in map)
-                {
-                    builder.Clear();
-                    var node = pair.Value;
-                    var defends = string.Join(',', node.Dependencies);
-                    builder.AppendJoin('=', node.Name, node.MD5, defends);
-                    writer.WriteLine(builder.ToString());
-                }
+                builder.Clear();
+                var node = pair.Value;
+                var defends = string.Join(',', node.Dependencies);
+                builder.AppendJoin('=', node.Name, node.MD5, defends);
+                writer.WriteLine(builder.ToString());
             }
         }
-
     }
 }

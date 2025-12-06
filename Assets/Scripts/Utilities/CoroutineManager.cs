@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Lunar
+namespace Lunar.Utilities
 {
     public class CoroutineManager : MonoBehaviour
     {

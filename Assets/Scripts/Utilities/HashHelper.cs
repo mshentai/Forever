@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace Lunar
 {
-    public static class HashUtils
+    public static class HashHelper
     {
         public static string GetMD5(string text)
         {

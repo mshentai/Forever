@@ -5,9 +5,9 @@ using System.IO;
 
 namespace Lunar
 {
-    public static class FileTool
+    public static class FileHelper
     {
-        public static bool IsExitFile(string path)
+        public static bool IsExistFile(string path)
         {
             return File.Exists(path);
         }
@@ -36,6 +36,21 @@ namespace Lunar
                 CreateDirByDirPath(parentDirPath);
                 Directory.CreateDirectory(dirPath);
             }
+        }
+
+        public static string ReadAllText(string path)
+        {
+            if (IsExistFile(path))
+            {
+                return File.ReadAllText(path);
+            }
+            return string.Empty;
+        }
+
+        public static void WriteAllText(string path, string content)
+        {
+            CreateDirByFilePath(path);
+            File.WriteAllText(path, content);
         }
     }
 }
