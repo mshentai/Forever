@@ -22,7 +22,9 @@ namespace Lunar.Building
                 var target = GetBuildTarget();
                 var assetDic = GetAssetDic();
                 var builds = GetBuilds(assetDic);
+                LLog.Info("StartBuildAssetBundle");
                 var manifest = BuildPipeline.BuildAssetBundles(outputPath, builds, opt, target);
+                LLog.Info("PostBuildAssetBundles");
                 PostAssetBundle(manifest, assetDic);
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
@@ -155,68 +157,46 @@ namespace Lunar.Building
         private static void SetAssetBundleLabelAndVariant(AssetInfo info)
         {
             var label = CollectionHandle.GetAssetBuildLabel(info.AssetPath);
-            info.AssetBuildLabel = HashHelper.GetMD5(label) + ".bundle";
+            info.AssetBuildLabel = HashHelper.GetMD5(label).ToLower() + ".bundle";
             info.ReadableLabel = label;
         }
 
         private static void PostAssetBundle(AssetBundleManifest manifest, AssetDic assetDic)
         {
-            var resMap = GetOldResMap();
+            var config = AssetbundleHelper.LoadAssetBundleConfig();
             var bundleNameList = manifest.GetAllAssetBundles();
             foreach (var name in bundleNameList)
             {
                 var md5 = manifest.GetAssetBundleHash(name).ToString();
                 var depends = manifest.GetDirectDependencies(name);
-                if (resMap.ContainsKey(name))
+                AssetBundleData data;
+                if (config.bundleDic.ContainsKey(name))
                 {
-                    var node = resMap[name];
-                    node.MD5 = md5;
+                    data = config.bundleDic[name];
+                    data.Md5 = md5;
+                    data.dependencies = depends;
                 }
                 else
                 {
-                    var node = new AssetNode(name, md5, depends);
-                    resMap[name] = node;
-                }
-            }
-            SaveResMap(resMap);
-        }
-
-        private static Dictionary<string, AssetNode> GetOldResMap()
-        {
-            var resMap = new Dictionary<string, AssetNode>();
-            var manifestPath = PathDefine.manifestPath;
-            using (var reader = new StreamReader(File.Open(manifestPath, FileMode.OpenOrCreate)))
-            {
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    string[] arr = line.Split('=');
-                    if (arr.Length >= 3)
+                    data = new AssetBundleData()
                     {
-                        var bundleName = arr[0];
-                        var bundleMD5 = arr[1];
-                        var defends = arr[2].Split(',');
-                        var node = new AssetNode(bundleName, bundleMD5, defends);
-                        resMap.Add(bundleName, node);
+                        bundleName = name,
+                        Md5 = md5,
+                        dependencies = depends,
+                    };
+                    config.bundleDic.Add(name, data);
+                }
+                if (assetDic.TryGetValue(name, out var assets))
+                {
+                    data.assetPaths = assets.Select(v => v.AssetPath).ToArray();
+                    foreach (var asset in assets)
+                    {
+                        config.res2bundle.Add(asset.AssetPath, name);
                     }
                 }
             }
-            return resMap;
-        }
-
-        private static void SaveResMap(Dictionary<string, AssetNode> map)
-        {
-            var manifestPath = PathDefine.manifestPath;
-            using var writer = new StreamWriter(File.Open(manifestPath, FileMode.OpenOrCreate));
-            var builder = new System.Text.StringBuilder();
-            foreach (var pair in map)
-            {
-                builder.Clear();
-                var node = pair.Value;
-                var defends = string.Join(',', node.Dependencies);
-                builder.AppendJoin('=', node.Name, node.MD5, defends);
-                writer.WriteLine(builder.ToString());
-            }
+            ++config.version;
+            AssetbundleHelper.SaveAssetBundleConfig(config);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Lunar.Core
 #if UNITY_EDITOR
             return new EditorLoader();
 #else
-            return new AssetBundleLoader();
+            return new ABLoader();
 #endif
         }
     }

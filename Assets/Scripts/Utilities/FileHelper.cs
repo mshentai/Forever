@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Data.Common;
 
 namespace Lunar
 {
@@ -25,7 +26,26 @@ namespace Lunar
 
         public static string GetDirPath(string path)
         {
-            return Path.GetDirectoryName(path);
+            return Path.GetDirectoryName(path).Replace("\\", "/");
+        }
+
+        public static string CombinePath(string path1, string path2)
+        {
+            return Path.Combine(path1, path2).Replace("\\", "/");
+        }
+
+        public static bool IsDirectory(string path)
+        {
+            return Directory.Exists(path);
+        }
+
+        public static void CopyFile(string srcPath, string destPath)
+        {
+            if (IsExistFile(srcPath) && !IsExistFile(destPath))
+            {
+                CreateDirByFilePath(destPath);
+                File.Copy(srcPath, destPath);
+            }
         }
 
         public static void CreateDirByDirPath(string dirPath)

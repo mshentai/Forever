@@ -5,25 +5,24 @@ using UnityEngine;
 
 namespace Lunar.Core
 {
+    [System.Serializable]
     public class AssetBundleConfigJson
     {
-        public string version;
+        public ulong version;
         public AssetBundleData[] bundleList;
-
         public AssetBundleConfig ToConfig()
         {
-
             var bundleDic = new Dictionary<string, AssetBundleData>();
-            foreach (var bundle in bundleList)
-            {
-                bundleDic.Add(bundle.bundleName, bundle);
-            }
             var res2bundle = new Dictionary<string, string>();
-            foreach (var bundle in bundleList)
+            if (bundleList != null)
             {
-                foreach (var assetPath in bundle.assetPaths)
+                foreach (var bundle in bundleList)
                 {
-                    res2bundle.Add(assetPath, bundle.bundleName);
+                    bundleDic.Add(bundle.bundleName, bundle);
+                    foreach (var assetPath in bundle.assetPaths)
+                    {
+                        res2bundle.Add(assetPath, bundle.bundleName);
+                    }
                 }
             }
             return new AssetBundleConfig
@@ -37,7 +36,7 @@ namespace Lunar.Core
 
     public class AssetBundleConfig
     {
-        public string version;
+        public ulong version;
         public Dictionary<string, AssetBundleData> bundleDic;
         public Dictionary<string, string> res2bundle;
         public AssetBundleConfigJson ToJsonObject()
@@ -51,6 +50,7 @@ namespace Lunar.Core
         }
     }
 
+    [System.Serializable]
     public class AssetBundleData
     {
         public string bundleName;

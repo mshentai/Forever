@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 412354210
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9f566efac30feb7b67ea8194c7c4fc9e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 48f9e47804cc6149eb45c38c55466448
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 9f566efac30feb7b67ea8194c7c4fc9e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/GameRes/Test/fuck.prefab
+Dependencies:
+- D:/Projects/Unity/Forever/Assets/Bundles/8969246217b75fa5c20b191156cb01c7.bundle

@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 817929004
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b61479270c336fc76e0cc0c444402a7e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2612ac43db082a73502ee80f2eceb73f
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: b61479270c336fc76e0cc0c444402a7e
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- "Assets/GameRes/Test/\u8FF7\u6DF11.jpg"
+Dependencies: []

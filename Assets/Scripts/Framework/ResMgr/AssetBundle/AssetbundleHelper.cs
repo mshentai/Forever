@@ -15,7 +15,16 @@ namespace Lunar.Core
                 var jsonObject = JsonHelper.ToObject<AssetBundleConfigJson>(json);
                 return jsonObject.ToConfig();
             }
-            return new AssetBundleConfig();
+            else
+            {
+                var config = new AssetBundleConfig
+                {
+                    version = 0,
+                    bundleDic = new Dictionary<string, AssetBundleData>(),
+                    res2bundle = new Dictionary<string, string>()
+                };
+                return config;
+            }
         }
 
         public static void SaveAssetBundleConfig(AssetBundleConfig config)
