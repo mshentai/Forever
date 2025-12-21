@@ -7,10 +7,10 @@ namespace Lunar.Core.FSM
 {
     public interface IState
     {
-        void OnInit(IStateMachine stateMachine);
-        void OnEnter();
-        void OnExit();
-        void OnUpdate();
+        void Init(IStateMachine stateMachine);
+        void Enter();
+        void Exit();
+        void Update();
     }
 }
 

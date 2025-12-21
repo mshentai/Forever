@@ -5,7 +5,7 @@ using System;
 
 namespace Lunar.Core.FSM
 {
-    public class StateMachine : IStateMachine
+    public class StateMachine : IStateMachine, ITickable
     {
         private object owner;
         private readonly Dictionary<Type, IState> states = new();
@@ -45,9 +45,9 @@ namespace Lunar.Core.FSM
             LLog.Assert(this.states.ContainsKey(type), "state is not registered");
             if (this.states.TryGetValue(type, out var newState))
             {
-                this.currentState?.OnExit();
+                this.currentState?.Exit();
                 this.currentState = newState;
-                this.currentState.OnEnter();
+                this.currentState.Enter();
             }
         }
 
@@ -75,13 +75,13 @@ namespace Lunar.Core.FSM
         public void Stop()
         {
             this.isRunning = false;
-            this.currentState?.OnExit();
+            this.currentState?.Exit();
             this.currentState = null;
         }
 
         public void Update()
         {
-            this.currentState?.OnUpdate();
+            this.currentState?.Update();
         }
 
         public void SetBlackBoardValue<T>(string key, T value)
