@@ -1,3 +1,4 @@
+using System;
 using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,18 +6,14 @@ using UnityEngine;
 
 namespace Lunar.Utilities
 {
-    public class Singleton<T> where T : new()
+    public class Singleton<T> where T : class, new()
     {
-        private static T _instance;
+        private readonly static Lazy<T> _instance = new(() => new T());
         public static T Instance
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new T();
-                }
-                return _instance;
+                return _instance.Value;
             }
         }
 
@@ -35,5 +32,4 @@ namespace Lunar.Utilities
 
         }
     }
-
 }

@@ -12,11 +12,11 @@ namespace Lunar.Core.FSM
         private readonly Dictionary<string, object> blackboards = new();
         private IState currentState;
         private bool isRunning;
+        public object Owner => this.owner;
         public void Init(object owner)
         {
             this.owner = owner;
         }
-
         public void RegisterState(Type type)
         {
             LLog.Assert(type != null, "state is null");
