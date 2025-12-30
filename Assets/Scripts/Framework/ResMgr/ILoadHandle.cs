@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
+using Lunar.Core;
 
-public interface ILoadHandle<T> : IEnumerator
+public interface ILoadHandle : IEnumerator
 {
     bool IsDone { get; }
-    T Result { get; }
     string Error { get; }
     bool IsSuccessful { get; }
-    event Action<ILoadHandle<T>> Completed;
+    event Action<ILoadHandle> Completed;
     void Cancel();
     void Release();
+    T GetAsset<T>() where T : UnityEngine.Object;
+    void OnLoadStateChanged(LoaderState state);
 }

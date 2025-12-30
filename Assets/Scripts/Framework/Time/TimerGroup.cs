@@ -8,15 +8,15 @@ namespace Lunar.Core
 {
     public class TimerGroup
     {
-        private TimerManager mgr => TimerManager.Instance;
-        private Dictionary<string, ITimer> timers = new();
+        private TimerManager Mgr => TimerManager.Instance;
+        private readonly Dictionary<string, ITimer> timers = new();
         public void SetTimeout(string name, float delay, Action callback)
         {
             if (timers.ContainsKey(name))
             {
                 this.ClearTimeout(name);
             }
-            var timer = mgr.AddTimer(delay, callback);
+            var timer = Mgr.AddTimer(delay, callback);
             timers.Add(name, timer);
         }
 
@@ -26,7 +26,7 @@ namespace Lunar.Core
             {
                 this.ClearInterval(name);
             }
-            var timer = mgr.AddLoopTimer(interval, repeatCount, callback);
+            var timer = Mgr.AddLoopTimer(interval, repeatCount, callback);
             timers.Add(name, timer);
         }
 
@@ -45,7 +45,7 @@ namespace Lunar.Core
             if (timers.ContainsKey(name))
             {
                 var timer = timers[name];
-                mgr.RemoveTimer(timer);
+                Mgr.RemoveTimer(timer);
                 timers.Remove(name);
             }
         }

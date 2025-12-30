@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Lunar.Core;
 using UnityEngine;
 
-public class ABLoadHandle : ILoadHandle<AssetBundle>
+public class ABLoadHandle : ILoadHandle
 {
     public bool IsDone => throw new NotImplementedException();
-
-    public AssetBundle Result => throw new NotImplementedException();
 
     public string Error => throw new NotImplementedException();
 
@@ -15,14 +14,24 @@ public class ABLoadHandle : ILoadHandle<AssetBundle>
 
     public object Current => throw new NotImplementedException();
 
-    public event Action<ILoadHandle<AssetBundle>> Completed;
+    public event Action<ILoadHandle> Completed;
 
     public void Cancel()
     {
         throw new NotImplementedException();
     }
 
+    public T GetAsset<T>() where T : UnityEngine.Object
+    {
+        throw new NotImplementedException();
+    }
+
     public bool MoveNext()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLoadStateChanged(LoaderState state)
     {
         throw new NotImplementedException();
     }

@@ -9,6 +9,6 @@ namespace Lunar.Core
         public LoadPriority priority;
         public bool isAsync;
         public string path;
-        public AssetLoader loader;
+        public ILoadHandle loadHandle;
     }
 }

@@ -15,7 +15,8 @@ namespace Lunar.Core
             AssetBundle bundle = AssetBundle.LoadFromFile(bundlePath);
             this.assetBundle = bundle;
             var name = this.GetAssetName();
-            this.asset = bundle.LoadAsset(name);
+            this.Asset = bundle.LoadAsset(name);
+            onLoaded?.Invoke(this.Asset);
         }
 
         public override void LoadAsync(string path, Action<UnityEngine.Object> onLoaded)
@@ -30,11 +31,6 @@ namespace Lunar.Core
             string md5 = HashHelper.GetMD5(path);
             string bundlePath = string.Format(PathDefine.bundleLoadPathFormat, md5);
             return bundlePath;
-        }
-
-        public override void Release()
-        {
-            ((AssetBundle)this.asset).UnloadAsync(true);
         }
     }
 }

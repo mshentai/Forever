@@ -15,25 +15,26 @@ namespace Lunar.Core
             taskMgr.Update();
         }
 
-        public LoadHandle<T> LoadAsync<T>(string path, LoadPriority priority = LoadPriority.Normal)
+        public LoadHandle LoadAsync(string path, LoadPriority priority = LoadPriority.Normal)
         {
             if (loaderCache.TryGetValue(path, out var loader) && (loader.State != LoaderState.Faild))
             {
-                return new LoadHandle<T>(loader);
+                return new LoadHandle(loader);
             }
             else
             {
                 loader = this.GetLoader(path);
+                var handle = new LoadHandle(loader);
                 var task = new LoadTask
                 {
                     path = path,
                     isAsync = true,
                     priority = priority,
-                    loader = loader,
+                    loadHandle = handle,
                 };
                 loaderCache[path] = loader;
                 taskMgr.dispatcher.PushTask(task);
-                return new LoadHandle<T>(loader);
+                return handle;
             }
         }
 
