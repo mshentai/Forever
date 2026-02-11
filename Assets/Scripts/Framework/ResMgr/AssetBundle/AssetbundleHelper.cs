@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Lunar.Core
 {
-    public static class AssetbundleHelper
+    public static class AssetBundleHelper
     {
         private static string AssetBundleConfigPath => Application.streamingAssetsPath + "/AssetBundleConfig.json";
         public static AssetBundleConfig LoadAssetBundleConfig()

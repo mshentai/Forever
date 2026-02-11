@@ -19,8 +19,8 @@ namespace Lunar.Core
                 dependentHandles.ForEach(handle => handle.OnLoadStateChanged(this.state));
             }
         }
-        protected List<LoadHandle> dependentHandles;
-        protected List<LoadHandle> dependencyHandles;
+        protected List<ILoadHandle> dependentHandles;
+        protected List<ILoadHandle> dependencyHandles;
         public T GetAsset<T>() where T : UnityEngine.Object
         {
             return Asset as T;
@@ -34,7 +34,7 @@ namespace Lunar.Core
 
         public abstract void LoadAsync(string path, Action<UnityEngine.Object> onLoaded);
 
-        public virtual void Release(LoadHandle handle)
+        public virtual void Release(ILoadHandle handle)
         {
             if (this.State == LoaderState.Loaded)
             {
@@ -45,7 +45,7 @@ namespace Lunar.Core
                 }
             }
         }
-        public virtual void Reference(LoadHandle handle)
+        public virtual void Reference(ILoadHandle handle)
         {
             if (this.dependentHandles.Contains(handle) == false)
             {

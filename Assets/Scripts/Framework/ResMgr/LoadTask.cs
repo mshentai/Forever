@@ -10,5 +10,6 @@ namespace Lunar.Core
         public bool isAsync;
         public string path;
         public ILoadHandle loadHandle;
+        public AssetLoader loader;
     }
 }

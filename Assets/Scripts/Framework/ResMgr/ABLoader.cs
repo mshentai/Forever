@@ -16,7 +16,6 @@ namespace Lunar.Core
             this.assetBundle = bundle;
             var name = this.GetAssetName();
             this.Asset = bundle.LoadAsset(name);
-            onLoaded?.Invoke(this.Asset);
         }
 
         public override void LoadAsync(string path, Action<UnityEngine.Object> onLoaded)

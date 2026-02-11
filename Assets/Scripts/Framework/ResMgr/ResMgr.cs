@@ -31,6 +31,7 @@ namespace Lunar.Core
                     isAsync = true,
                     priority = priority,
                     loadHandle = handle,
+                    loader = loader
                 };
                 loaderCache[path] = loader;
                 taskMgr.dispatcher.PushTask(task);

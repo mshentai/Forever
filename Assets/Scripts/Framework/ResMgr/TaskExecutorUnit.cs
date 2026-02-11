@@ -13,15 +13,14 @@ namespace Lunar.Core
         {
             this.task = task;
             this.isFinished = false;
-            // if (task.isAsync)
-            // {
-            //     task.loadHandle.LoadAsync(task.path, this.OnTaskFinished);
-            // }
-            // else
-
-            // {
-            //     task.loadHandle.Load(task.path, this.OnTaskFinished);
-            // }
+            if (task.isAsync)
+            {
+                task.loader.LoadAsync(task.path, OnTaskFinished);
+            }
+            else
+            {
+                task.loader.Load(task.path, OnTaskFinished);
+            }
         }
 
         public void Cancel()

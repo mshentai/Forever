@@ -163,7 +163,7 @@ namespace Lunar.Building
 
         private static void PostAssetBundle(AssetBundleManifest manifest, AssetDic assetDic)
         {
-            var config = AssetbundleHelper.LoadAssetBundleConfig();
+            var config = AssetBundleHelper.LoadAssetBundleConfig();
             var bundleNameList = manifest.GetAllAssetBundles();
             foreach (var name in bundleNameList)
             {
@@ -196,7 +196,7 @@ namespace Lunar.Building
                 }
             }
             ++config.version;
-            AssetbundleHelper.SaveAssetBundleConfig(config);
+            AssetBundleHelper.SaveAssetBundleConfig(config);
         }
     }
 }
