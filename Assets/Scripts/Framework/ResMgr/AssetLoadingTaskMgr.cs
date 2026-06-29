@@ -1,6 +1,6 @@
 namespace Lunar.Core
 {
-    public class ResLoadingTaskMgr
+    public class AssetLoadingTaskMgr
     {
         private LoadingTaskDispatcher dispatcher;
         private LoadingTaskExecutor executor;

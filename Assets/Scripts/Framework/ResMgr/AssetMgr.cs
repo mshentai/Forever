@@ -5,7 +5,7 @@ using System;
 
 namespace Lunar.Core
 {
-    public class ResMgr
+    public class AssetMgr
     {
         private readonly LoadTaskMgr taskMgr = new LoadTaskMgr();
         private readonly Dictionary<string, AssetLoader> loaderCache = new();
